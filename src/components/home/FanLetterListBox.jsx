@@ -3,6 +3,9 @@ import styled from "styled-components";
 import FanLetter from "./FanLetter";
 
 function FanLetterListBox({ resultData, searchParams, navigate }) {
+  const fanLetterMsg = resultData.filter(
+    (item) => item.writedTo === searchParams.get("artistSort")
+  );
   return (
     <ListBox>
       {resultData
@@ -17,6 +20,9 @@ function FanLetterListBox({ resultData, searchParams, navigate }) {
         .map((item) => (
           <FanLetter key={item.id} navigate={navigate} fanLetterData={item} />
         ))}
+
+      {fanLetterMsg.length === 0 ? <StMsg>{searchParams.get("artistSort")}에게 첫번째 팬레터를 보내주세요</StMsg> : null}
+      
     </ListBox>
   );
 }
@@ -34,4 +40,16 @@ const ListBox = styled.ul`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const StMsg = styled.div`
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 0 5px #fff;
+  font-size: 1.2rem;
+  text-align: center;
 `;
