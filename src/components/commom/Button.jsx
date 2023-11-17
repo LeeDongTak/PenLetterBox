@@ -1,37 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { faHouseChimney,faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHouseChimney,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { InsertContext, SearchContext } from "../../context/homeContext";
+import { DetailContext, ModalContext } from "../../context/detailContext";
 
-function Button({
-  id,
-  insertFanLetter,
-  modalText,
-  updCommit,
-  delCommit,
-  updInputShow,
-  modalShow,
-  Sortation,
-  navigate,
-  searchResetFanLetter,
-  resultData
-}) {
+function Button({ Sortation }) {
+  const homeInsert = useContext(InsertContext);
+  const homeSearch = useContext(SearchContext);
+  const detailModalBtn = useContext(ModalContext);
+  const detail = useContext(DetailContext);
   switch (Sortation) {
     case "팬레터 등록":
       return (
-        <StButton $btnStyle="addBtn" onClick={insertFanLetter}>
+        <StButton
+          $btnStyle="addBtn"
+          onClick={() => {
+            homeInsert.insertFanLetter();
+          }}
+        >
           팬레터 등록
         </StButton>
       );
       break;
     case "수정":
-      return <StButton onClick={updInputShow}>수정</StButton>;
+      return <StButton onClick={detail.updInputShow}>수정</StButton>;
       break;
     case "삭제":
       return (
         <StButton
           onClick={() => {
-            modalShow("정말로 삭제하시겠습니까?", false);
+            detail.modalShow("정말로 삭제하시겠습니까?", false);
           }}
         >
           삭제
@@ -42,7 +44,7 @@ function Button({
       return (
         <StButton
           onClick={() => {
-            modalShow("정말로 수정하시겠습니까?");
+            detail.modalShow("정말로 수정하시겠습니까?");
           }}
         >
           수정완료
@@ -50,16 +52,16 @@ function Button({
       );
       break;
     case "수정취소":
-      return <StButton onClick={updInputShow}>취소</StButton>;
+      return <StButton onClick={detail.updInputShow}>취소</StButton>;
       break;
     case "확인":
       return (
         <StButton
           $btnStyle="cmitBtn"
           onClick={() => {
-            modalText == "정말로 수정하시겠습니까?"
-              ? updCommit(id)
-              : delCommit(id);
+            detailModalBtn.modalText == "정말로 수정하시겠습니까?"
+              ? detailModalBtn.updCommit(detailModalBtn.id)
+              : detailModalBtn.delCommit(detailModalBtn.id);
           }}
         >
           확인
@@ -71,7 +73,7 @@ function Button({
         <StButton
           $btnStyle="cmitBtn"
           onClick={() => {
-            modalShow("", false);
+            detailModalBtn.modalShow("", false);
           }}
         >
           취소
@@ -83,10 +85,10 @@ function Button({
         <StButton
           $btnStyle="homeBtn"
           onClick={() => {
-            navigate(`/?artisdtSort=${resultData.writedTo}`);
+            detail.navigate(`/?artisdtSort=${detail.resultData.writedTo}`);
           }}
         >
-        <FontAwesomeIcon icon={faHouseChimney} />
+          <FontAwesomeIcon icon={faHouseChimney} />
         </StButton>
       );
       break;
@@ -95,9 +97,10 @@ function Button({
         <StButton
           $btnStyle="searchBtn"
           onClick={() => {
-            searchResetFanLetter()
+            homeSearch.searchResetFanLetter();
           }}
-        > 초가화
+        >
+          초가화
         </StButton>
       );
       break;
@@ -134,8 +137,7 @@ const StButton = styled.button`
   margin-right: ${({ $btnStyle }) => ($btnStyle === "cmitBtn" ? "5%" : "0%")};
   ${({ $btnStyle }) =>
     $btnStyle === "homeBtn" ? "margin: 0 auto 1.5rem 0" : null};
-    ${({ $btnStyle }) =>
-    $btnStyle === "searchBtn" ? "margin: 0" : null};
+  ${({ $btnStyle }) => ($btnStyle === "searchBtn" ? "margin: 0" : null)};
   font-weight: bold;
   transition: 0.1s;
   cursor: pointer;

@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../commom/Button";
 import styled from "styled-components";
+import { InsertContext } from "../../context/homeContext";
 
-function FanLetterInsertBox({
-  searchParams,
-  errMsgBool,
-  errMsg,
-  nickNameInput,
-  nickNameInputHendler,
-  nickNameRef,
-  contentInput,
-  contentInputHendler,
-  insertFanLetter,
-}) {
+function FanLetterInsertBox() {
+  const {
+    searchParams,
+    errMsgBool,
+    errMsg,
+    nickNameInput,
+    nickNameInputHendler,
+    nickNameRef,
+    contentInput,
+    contentInputHendler,
+  } = useContext(InsertContext)
   return (
     <InputBox>
       <TitleBox>
@@ -34,7 +35,7 @@ function FanLetterInsertBox({
         cols="30"
         rows="5"
       ></ListInsertContent>
-      <Button insertFanLetter={insertFanLetter} Sortation="팬레터 등록" />
+      <Button Sortation="팬레터 등록" />
     </InputBox>
   );
 }

@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Button from "../commom/Button";
+import { DetailContext } from "../../context/detailContext";
 
-function DetailBtnBox({ updContentShow, updInputShow, modalShow }) {
+function DetailBtnBox() {
+  
+const { updContentShow } = useContext(DetailContext)
   return (
     <BtnBox>
       {updContentShow === false ? (
         <>
-          <Button updInputShow={updInputShow} Sortation="수정" />
-          <Button modalShow={modalShow} Sortation="삭제" />
+          <Button Sortation="수정" />
+          <Button Sortation="삭제" />
         </>
       ) : (
         <>
-          <Button modalShow={modalShow} Sortation="수정완료" />
-          <Button updInputShow={updInputShow} Sortation="수정취소" />
+          <Button Sortation="수정완료" />
+          <Button Sortation="수정취소" />
         </>
       )}
     </BtnBox>

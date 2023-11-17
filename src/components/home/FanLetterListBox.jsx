@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import FanLetter from "./FanLetter";
+import { ListContext } from "../../context/homeContext";
 
-function FanLetterListBox({ resultData, searchParams, navigate }) {
+function FanLetterListBox() {
+  const { resultData, searchParams, navigate } = useContext(ListContext);
   const fanLetterMsg = resultData.filter(
     (item) => item.writedTo === searchParams.get("artistSort")
   );
@@ -21,8 +23,11 @@ function FanLetterListBox({ resultData, searchParams, navigate }) {
           <FanLetter key={item.id} navigate={navigate} fanLetterData={item} />
         ))}
 
-      {fanLetterMsg.length === 0 ? <StMsg>{searchParams.get("artistSort")}에게 첫번째 팬레터를 보내주세요</StMsg> : null}
-      
+      {fanLetterMsg.length === 0 ? (
+        <StMsg>
+          {searchParams.get("artistSort")}에게 첫번째 팬레터를 보내주세요
+        </StMsg>
+      ) : null}
     </ListBox>
   );
 }

@@ -6,6 +6,7 @@ import Button from "../components/commom/Button";
 import DetailHeader from "../components/detail/DetailHeader";
 import DetailContainer from "../components/detail/DetailContainer";
 import DetailBtnBox from "../components/detail/DetailBtnBox";
+import { DetailContext, ModalContext } from "../context/detailContext";
 
 function Detail() {
   const { id } = useParams();
@@ -67,28 +68,29 @@ function Detail() {
     <StWrap>
       {/* 모달창 */}
       {modalBool === true ? (
-        <Modal
-          modalShow={modalShow}
-          modalText={modalText}
-          updCommit={updCommit}
-          delCommit={delCommit}
-          id={resultData.id}
-        />
+        <ModalContext.Provider
+          value={{ modalShow, updCommit, delCommit, modalText, id }}
+        >
+          <Modal />
+        </ModalContext.Provider>
       ) : null}
       <StContainer>
-        <Button resultData={resultData} navigate={navigate} Sortation="홈" />
-        <DetailHeader resultData={resultData} />
-        <DetailContainer
-          resultData={resultData}
-          updContentShow={updContentShow}
-          updContentHandler={updContentHandler}
-          updContentInput={updContentInput}
-        />
-        <DetailBtnBox
-          updContentShow={updContentShow}
-          updInputShow={updInputShow}
-          modalShow={modalShow}
-        />
+        <DetailContext.Provider
+          value={{
+            resultData,
+            navigate,
+            updContentShow,
+            updContentHandler,
+            updContentInput,
+            updInputShow,
+            modalShow
+          }}
+        >
+          <Button Sortation="홈" />
+          <DetailHeader />
+          <DetailContainer />
+          <DetailBtnBox />
+        </DetailContext.Provider>
       </StContainer>
     </StWrap>
   );

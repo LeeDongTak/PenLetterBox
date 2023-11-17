@@ -9,6 +9,12 @@ import moment from "moment/moment";
 import FanLetterInsertBox from "../components/home/FanLetterInsertBox";
 import FanLetterListBox from "../components/home/FanLetterListBox";
 import SeatchWrap from "../components/home/SeatchWrap";
+import {
+  ArtistContext,
+  InsertContext,
+  SearchContext,
+  ListContext,
+} from "../context/homeContext";
 
 function Home() {
   const navigate = useNavigate();
@@ -179,7 +185,7 @@ function Home() {
   // 팬레터를 검색을 초가화하는 함수
   const searchResetFanLetter = () => {
     navigate(`/?artistSort=${searchParams.get("artistSort")}`);
-    setSearchInput('')
+    setSearchInput("");
   };
 
   // component mount시 true인 맴버담기
@@ -216,35 +222,45 @@ function Home() {
     <StWrap>
       <StContainer>
         {/* 맴버선텍영역 */}
-        <ArtistBtn artistMember={artistMember} memberChoice={memberChoice} />
+        <ArtistContext.Provider value={{ artistMember, memberChoice }}>
+          <ArtistBtn />
+        </ArtistContext.Provider>
         <ContentWrap>
           {/* 펜레터 추가 영역 */}
-          <FanLetterInsertBox
-            searchParams={searchParams}
-            errMsgBool={errMsgBool}
-            errMsg={errMsg}
-            nickNameInput={nickNameInput}
-            nickNameInputHendler={nickNameInputHendler}
-            nickNameRef={nickNameRef}
-            contentInput={contentInput}
-            contentInputHendler={contentInputHendler}
-            insertFanLetter={insertFanLetter}
-          />
+          <InsertContext.Provider
+            value={{
+              searchParams,
+              errMsgBool,
+              errMsg,
+              nickNameInput,
+              nickNameInputHendler,
+              nickNameRef,
+              contentInput,
+              contentInputHendler,
+              insertFanLetter,
+            }}
+          >
+            <FanLetterInsertBox />
+          </InsertContext.Provider>
           <SeatchAndListWrap>
             {/* Seatch영역 */}
-            <SeatchWrap
-              searchParams={searchParams}
-              searchInputHendler={searchInputHendler}
-              searchFanLetter={searchFanLetter}
-              searchInput={searchInput}
-              searchResetFanLetter={searchResetFanLetter}
-            ></SeatchWrap>
+            <SearchContext.Provider
+              value={{
+                searchParams,
+                searchInputHendler,
+                searchFanLetter,
+                searchInput,
+                searchResetFanLetter,
+              }}
+            >
+              <SeatchWrap />
+            </SearchContext.Provider>
             {/* list영역 */}
-            <FanLetterListBox
-              resultData={resultData}
-              searchParams={searchParams}
-              navigate={navigate}
-            />
+            <ListContext.Provider
+              value={{ resultData, searchParams, navigate }}
+            >
+              <FanLetterListBox />
+            </ListContext.Provider>
           </SeatchAndListWrap>
         </ContentWrap>
       </StContainer>

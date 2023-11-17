@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../commom/Button";
+import { ModalContext } from "../../context/detailContext";
 
-function Modal({ modalShow, updCommit, delCommit, modalText, id }) {
-  useEffect(() => {}, []);
+function Modal() {
+  const { modalShow, modalText } = useContext(ModalContext);
   return (
     <ModalWrap>
       <ModalBg
@@ -14,14 +15,8 @@ function Modal({ modalShow, updCommit, delCommit, modalText, id }) {
       <ModalBox>
         <ModalText>{modalText}</ModalText>
         <ModalBtnBox>
-          <Button
-            id={id}
-            modalText={modalText}
-            updCommit={updCommit}
-            delCommit={delCommit}
-            Sortation="확인"
-          />
-          <Button modalShow={modalShow} Sortation="모달취소" />
+          <Button Sortation="확인" />
+          <Button Sortation="모달취소" />
         </ModalBtnBox>
       </ModalBox>
     </ModalWrap>

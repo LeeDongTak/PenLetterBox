@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
+import { ArtistContext } from "../../context/homeContext";
 
-function ArtistBtn({ artistMember, memberChoice }) {
+function ArtistBtn() {
+  const { artistMember, memberChoice } = useContext(ArtistContext)
   return (
     <HeaderWrap>
       {artistMember.map((item) => {

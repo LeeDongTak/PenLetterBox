@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { DetailContext } from "../../context/detailContext";
 
-function DetailHeader({
-  resultData
-}) {
+function DetailHeader() {
+  const { resultData } = useContext(DetailContext)
   return (
     <Header>
       <ImgBox>
@@ -19,7 +19,7 @@ export default DetailHeader;
 
 
 // 이미지, 닉네임, 날짜 영역
-export const Header = styled.div`
+const Header = styled.div`
   width: 80%;
   flex: 1;
   display: flex;
@@ -28,19 +28,19 @@ export const Header = styled.div`
   border-radius: 5px;
 `;
 
-export const ImgBox = styled.div`
+const ImgBox = styled.div`
   flex: 2;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-export const Img = styled.img`
+const Img = styled.img`
   width: 25%;
   border-radius: 50px;
   border: 1px solid #000;
 `;
-export const NickNameBox = styled.div`
+const NickNameBox = styled.div`
   flex: 3;
   height: 100%;
   display: flex;
@@ -49,7 +49,7 @@ export const NickNameBox = styled.div`
   font-weight: bold;
   font-size: 1.5rem;
 `;
-export const DateBox = styled.div`
+const DateBox = styled.div`
   flex: 1;
   height: 100%;
   display: flex;

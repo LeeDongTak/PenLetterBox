@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Button from "../commom/Button";
+import { SearchContext } from "../../context/homeContext";
 
-function SeatchWrap({
-  searchParams,
-  searchInputHendler,
-  searchFanLetter,
-  searchInput,
-  searchResetFanLetter
-}) {
+function SeatchWrap() {
+  const {
+    searchParams,
+    searchInputHendler,
+    searchFanLetter,
+    searchInput
+  } = useContext(SearchContext);
   return (
     <SearchBox>
       <SearchName>{searchParams.get("artistSort")}</SearchName>
@@ -17,13 +18,13 @@ function SeatchWrap({
         value={searchInput}
         type="text"
         onChange={searchInputHendler}
-        onKeyUp={ (e)=>{ 
-          if(e.key === 'Enter'){
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
             searchFanLetter();
           }
-      }  }  
+        }}
       />
-      <Button searchResetFanLetter={searchResetFanLetter} Sortation="검색" />
+      <Button Sortation="검색" />
     </SearchBox>
   );
 }

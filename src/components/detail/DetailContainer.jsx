@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { DetailContext } from "../../context/detailContext";
 
-function DetailContainer({
-  resultData,
-  updContentShow,
-  updContentHandler,
-  updContentInput,
-}) {
+function DetailContainer() {
+  const {
+    resultData,
+    updContentShow,
+    updContentHandler,
+    updContentInput,
+  } = useContext(DetailContext)
   return (
     <Container>
       <ArtistName>{resultData.writedTo} 팬레터 함</ArtistName>
@@ -27,7 +29,7 @@ function DetailContainer({
 export default DetailContainer;
 
 // 내용 영역
-export const Container = styled.div`
+const Container = styled.div`
   width: 100%;
   flex: 5;
   display: flex;
@@ -35,7 +37,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-around;
 `;
-export const ArtistName = styled.div`
+const ArtistName = styled.div`
   width: 80%;
   flex: 2;
   font-size: 1.8rem;
@@ -44,7 +46,7 @@ export const ArtistName = styled.div`
   align-items: center;
   justify-content: flex-start;
 `;
-export const FanLetter = styled.div`
+const FanLetter = styled.div`
   width: 72%;
   flex: 5;
   display: flex;
@@ -57,7 +59,7 @@ export const FanLetter = styled.div`
   font-size: 1.3rem;
 `;
 
-export const UpdFanLetter = styled.textarea`
+const UpdFanLetter = styled.textarea`
   width: 72%;
   flex: 5;
   display: flex;
