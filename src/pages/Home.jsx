@@ -23,7 +23,6 @@ function Home() {
   const [errMsg, setErrMsg] = useState("");
   const [errMsgBool, setErrMsgBool] = useState(false);
 
-
   // uuid로 랜덤한 id 생성
   const uuid = () => {
     const tokens = v4().split("-");
@@ -178,6 +177,12 @@ function Home() {
     }
   };
 
+  // 팬레터를 검색을 초가화하는 함수
+  const searchResetFanLetter = () => {
+    navigate(`/?artistSort=${searchParams.get("artistSort")}`);
+    setSearchInput('')
+  };
+
   // component mount시 true인 맴버담기
   useEffect(() => {
     const memberTrue = artistMember.filter((item) => item.status === true);
@@ -233,6 +238,7 @@ function Home() {
               searchInputHendler={searchInputHendler}
               searchFanLetter={searchFanLetter}
               searchInput={searchInput}
+              searchResetFanLetter={searchResetFanLetter}
             ></SeatchWrap>
             {/* list영역 */}
             <FanLetterListBox

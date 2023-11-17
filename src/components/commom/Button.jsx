@@ -13,7 +13,7 @@ function Button({
   modalShow,
   Sortation,
   navigate,
-  searchFanLetter,
+  searchResetFanLetter,
   resultData
 }) {
   switch (Sortation) {
@@ -95,10 +95,9 @@ function Button({
         <StButton
           $btnStyle="searchBtn"
           onClick={() => {
-            searchFanLetter()
+            searchResetFanLetter()
           }}
-        >
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
+        > 초가화
         </StButton>
       );
       break;

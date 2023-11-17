@@ -7,17 +7,23 @@ function SeatchWrap({
   searchInputHendler,
   searchFanLetter,
   searchInput,
+  searchResetFanLetter
 }) {
   return (
     <SearchBox>
       <SearchName>{searchParams.get("artistSort")}</SearchName>
       <SeatchInput
-        placeholder="펜레터를 검색하세요"
+        placeholder="Enter를 눌러 펜레터를 검색하세요"
         value={searchInput}
         type="text"
         onChange={searchInputHendler}
+        onKeyUp={ (e)=>{ 
+          if(e.key === 'Enter'){
+            searchFanLetter();
+          }
+      }  }  
       />
-      <Button searchFanLetter={searchFanLetter} Sortation="검색" />
+      <Button searchResetFanLetter={searchResetFanLetter} Sortation="검색" />
     </SearchBox>
   );
 }
@@ -33,10 +39,10 @@ const SearchBox = styled.div`
 `;
 
 const SearchName = styled.div`
-  width: 20%;
+  width: 15%;
   height: 50%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-weight: bold;
   font-size: 1.4rem;
@@ -44,7 +50,7 @@ const SearchName = styled.div`
 `;
 
 const SeatchInput = styled.input`
-  width: 60%;
+  width: 59%;
   height: 49%;
   border-radius: 5px;
   box-shadow: 0 0 5px 2px #fff;
