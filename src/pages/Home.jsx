@@ -176,7 +176,6 @@ function Home() {
       );
     }
   };
-
   // 팬레터를 검색을 초가화하는 함수
   const searchResetFanLetter = () => {
     navigate(`/?artistSort=${searchParams.get("artistSort")}`);
