@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { faHouseChimney,faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faHouseChimney } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Button({

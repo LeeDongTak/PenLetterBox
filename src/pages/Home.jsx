@@ -180,7 +180,7 @@ function Home() {
   // 팬레터를 검색을 초가화하는 함수
   const searchResetFanLetter = () => {
     navigate(`/?artistSort=${searchParams.get("artistSort")}`);
-    setSearchInput('')
+    setSearchInput("");
   };
 
   // component mount시 true인 맴버담기
@@ -198,18 +198,31 @@ function Home() {
   }, [fanLetterData]);
 
   useEffect(() => {
-    const localData = localStorage.getItem("data");
-    const localFakeData = localStorage.getItem("fakeData");
-    const data =
-      localData === null
-        ? localStorage.setItem("data", JSON.stringify([]))
-        : JSON.parse(localData);
-    const FakeData =
-      localFakeData === null
-        ? localStorage.setItem("fakeData", JSON.stringify(fakeData))
-        : JSON.parse(localFakeData);
-    setFanLetterData([...data]);
-    setFakeDataState([...FakeData]);
+    let insertData = [];
+    let insertFakeData = [];
+    if (
+      localStorage.getItem("data") === null &&
+      localStorage.getItem("fakeData") === null
+    ) {
+      localStorage.setItem("data", JSON.stringify([]));
+      localStorage.setItem("fakeData", JSON.stringify([...fakeData]));
+      insertData = JSON.parse(localStorage.getItem("data"));
+      insertFakeData = JSON.parse(localStorage.getItem("fakeData"));
+    } else if (localStorage.getItem("data") === null) {
+      localStorage.setItem("data", JSON.stringify([]));
+      insertData = JSON.parse(localStorage.getItem("data"));
+      insertFakeData = JSON.parse(localStorage.getItem("fakeData"));
+    } else if (localStorage.getItem("fakeData") === null) {
+      localStorage.setItem("fakeData", JSON.stringify([...fakeData]));
+      insertData = JSON.parse(localStorage.getItem("data"));
+      insertFakeData = JSON.parse(localStorage.getItem("fakeData"));
+    } else {
+      insertData = JSON.parse(localStorage.getItem("data"));
+      insertFakeData = JSON.parse(localStorage.getItem("fakeData"));
+    }
+    setFanLetterData([...insertData]);
+    setFakeDataState([...insertFakeData]);
+
     nickNameRef.current.focus();
   }, []);
 
