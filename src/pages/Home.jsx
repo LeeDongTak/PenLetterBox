@@ -9,6 +9,7 @@ import moment from "moment/moment";
 import FanLetterInsertBox from "../components/home/FanLetterInsertBox";
 import FanLetterListBox from "../components/home/FanLetterListBox";
 import SeatchWrap from "../components/home/SeatchWrap";
+import { artistData } from "../data/artistData";
 import {
   ArtistContext,
   InsertContext,
@@ -19,6 +20,7 @@ import {
 function Home() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [artistMember, setArtistMember] = useState(artistData)
   const [fakeDataState, setFakeDataState] = useState([]); //fakeData.json파일에서 가져온 데이터
   const [fanLetterData, setFanLetterData] = useState([]); // localStorage에 추가하는 데이터
   const [resultData, setResultData] = useState([]); // fakeData와 localStorage데이터를 합쳐서 화면에 출력하는 데이터
@@ -35,44 +37,7 @@ function Home() {
     return tokens[2] + tokens[1] + tokens[0] + tokens[3] + tokens[4];
   };
 
-  // 르세라핌 맴버 리스트
-  const [artistMember, setArtistMember] = useState([
-    {
-      id: uuid(),
-      artistName: "사쿠라",
-      artistImg:
-        "https://i.namu.wiki/i/GN0r1RXrUvePBt17HH_wKxMdT-QAYSN6w2Z51nB1oB9p67OHXC6BVPSBbPFB3UiD1q6343xlrDQPRXHQm20nVMCW31-Tn0kCDLcyvoLbl73ZFb1WEie04LZyQEisg_sR4JhKZNVw25clbSkDXFEwBA.webp",
-      status: true,
-    },
-    {
-      id: uuid(),
-      artistName: "김채원",
-      artistImg:
-        "https://i.namu.wiki/i/2yDEjjBpqnZGidxPZBnNsHtIQam4eTO8hjvuol5igY-x2cJvMF89XbhQhzVZ3Fvo_z6Hh5aOdAwUDJg2Bvl77Y8G1GY-1yZ6ccHHxOZ-z5KFnNtVPzyEM8JT0mHiBjKQa89ub7_3dI43GoXRfJBPwg.webp",
-      status: false,
-    },
-    {
-      id: uuid(),
-      artistName: "허윤진",
-      artistImg:
-        "https://i.namu.wiki/i/mqNwRedHkivTuVkkbWK5RK61CIvam1S1g_SnIwoquTou6KT77nNl-b6YcGCu5N4xJaQB7fTC9AdxIvq0EWjnwQu1zqTN9a1EcXuAvDCuWOiqlRttOhryZYiUjAmUAjzQ9s1i9BBWFnpZyK5t34T2_g.webp",
-      status: false,
-    },
-    {
-      id: uuid(),
-      artistName: "카즈하",
-      artistImg:
-        "https://i.namu.wiki/i/F4Vg2qFHgDWrg40a_vsfeDQpxDPLPh0yw8bt4WFtIs3umbxWAYNfB-rg6gd7eDmvBj-vo-3-SpYA1mHK8v1Fy92t-_OHOFgWFd_U6fJbfupp-aFv3re7ij1DHrstaaTOBQliOWAtrkAVOYTLCb-8wg.webp",
-      status: false,
-    },
-    {
-      id: uuid(),
-      artistName: "홍은채",
-      artistImg:
-        "https://i.namu.wiki/i/VT7_F2XjBGLhAZZkQKn5G1q87SiXvcbtoRjLM6-JRM0yQY7gXmQ8Ret4mW98aCUZvGdCmZWTcervdyd2oCG4x7mKiBekwsOTcRHfO_7O5fmLoNqEqvohux2tLUZ0D5C5XcGC7pXb5qEqeNdxz4EX1g.webp",
-      status: false,
-    },
-  ]);
+
 
   //   맴버 클릭 시 해당 맴버가 포커스 되는 함수
   const memberChoice = (id) => {
