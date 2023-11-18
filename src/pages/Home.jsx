@@ -203,17 +203,6 @@ function Home() {
   }, [fanLetterData]);
 
   useEffect(() => {
-    // const localData = localStorage.getItem("data");
-    // const localFakeData = localStorage.getItem("fakeData");
-    // const data =
-    //   localData === null
-    //     ? localStorage.setItem("data", JSON.stringify([]))
-    //     : JSON.parse(localData);
-    // const FakeData =
-    //   localFakeData === null
-    //     ? localStorage.setItem("fakeData", JSON.stringify(fakeData))
-    //     : JSON.parse(localFakeData);
-
     let insertData = [];
     let insertFakeData = [];
     if (

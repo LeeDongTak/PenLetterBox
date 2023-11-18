@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StWrap, StContainer } from "../styed/commonStyle";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "../components/detail/Modal";
