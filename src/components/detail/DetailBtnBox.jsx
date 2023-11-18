@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import Button from "../commom/Button";
-import { DetailContext } from "../../context/detailContext";
+import { useSelector } from "react-redux";
+
 
 function DetailBtnBox() {
   
-const { updContentShow } = useContext(DetailContext)
+const detail = useSelector((state) => state.detail);
   return (
     <BtnBox>
-      {updContentShow === false ? (
+      {detail.updContentShow === false ? (
         <>
           <Button Sortation="수정" />
           <Button Sortation="삭제" />

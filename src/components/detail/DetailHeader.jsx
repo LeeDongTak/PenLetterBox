@@ -1,9 +1,14 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { DetailContext } from "../../context/detailContext";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 function DetailHeader() {
-  const { resultData } = useContext(DetailContext)
+  const insertFanLetter = useSelector((state) => state.insertFanLetter);
+  const { id } = useParams();
+  const fanLetterData = [...insertFanLetter.fanLetterData];
+  const resultData = fanLetterData.find((x) => x.id === id);
+  
   return (
     <Header>
       <ImgBox>

@@ -1,18 +1,21 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
-import { ArtistContext } from "../../context/homeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { memberCoice } from "../../redux/modules/homeRedux/artistBtn";
 
 function ArtistBtn() {
-  const { artistMember, memberChoice } = useContext(ArtistContext)
+  const dispatch = useDispatch()
+  
+  const artistBtn = useSelector((state)=>state.artistBtn)
   return (
     <HeaderWrap>
-      {artistMember.map((item) => {
+      {artistBtn.artistMember.map((item) => {
         return (
           <Button
             $background={item.artistImg}
             onClick={() => {
-              memberChoice(item.id);
+              dispatch(memberCoice(item.id));
             }}
             key={item.id}
           >

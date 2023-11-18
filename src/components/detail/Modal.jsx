@@ -1,21 +1,27 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../commom/Button";
-import { ModalContext } from "../../context/detailContext";
+import { useDispatch, useSelector } from "react-redux";
+import { modalShow } from "../../redux/modules/detailRedux/detail";
 
 function Modal() {
-  const { modalShow, modalText } = useContext(ModalContext);
+  const detail = useSelector((state) => state.detail);
+  const dispatch = useDispatch();
   return (
     <ModalWrap>
       <ModalBg
         onClick={() => {
-          modalShow("", false);
+          dispatch(modalShow({ modalMsg: "", modalBool: false }));
         }}
       ></ModalBg>
       <ModalBox>
-        <ModalText>{modalText}</ModalText>
+        <ModalText>{detail.ModalText}</ModalText>
         <ModalBtnBox>
-          <Button Sortation="확인" />
+          {detail.ModalText === "정말로 수정하시겠습니까?" ? (
+            <Button Sortation="수정확인" />
+          ) : (
+            <Button Sortation="삭제확인" />
+          )}
           <Button Sortation="모달취소" />
         </ModalBtnBox>
       </ModalBox>

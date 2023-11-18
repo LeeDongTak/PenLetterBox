@@ -1,31 +1,32 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import FanLetter from "./FanLetter";
-import { ListContext } from "../../context/homeContext";
+import { useSelector } from "react-redux";
 
 function FanLetterListBox() {
-  const { resultData, searchParams, navigate } = useContext(ListContext);
-  const fanLetterMsg = resultData.filter(
-    (item) => item.writedTo === searchParams.get("artistSort")
+  const insertFanLetter = useSelector((state) => state.insertFanLetter);
+  const searchFanLetter = useSelector((state) => state.searchFanLetter);
+  const fanLetterMsg = insertFanLetter.fanLetterData.filter(
+    (item) => item.writedTo === insertFanLetter.searchParamsArtist
   );
   return (
     <ListBox>
-      {resultData
-        .filter((item) => item.writedTo === searchParams.get("artistSort"))
+      {insertFanLetter.fanLetterData
+        .filter((item) => item.writedTo === insertFanLetter.searchParamsArtist)
         .filter((item) =>
-          searchParams.get("search") !== null
-            ? item.nickname.includes(searchParams.get("search")) ||
-              item.content.includes(searchParams.get("search")) ||
-              item.createdAt.includes(searchParams.get("search"))
+          searchFanLetter.searchInput !== null
+            ? item.nickname.includes(searchFanLetter.searchInput) ||
+              item.content.includes(searchFanLetter.searchInput) ||
+              item.createdAt.includes(searchFanLetter.searchInput)
             : item
         )
         .map((item) => (
-          <FanLetter key={item.id} navigate={navigate} fanLetterData={item} />
+          <FanLetter key={item.id} fanLetterData={item} />
         ))}
 
       {fanLetterMsg.length === 0 ? (
         <StMsg>
-          {searchParams.get("artistSort")}에게 첫번째 팬레터를 보내주세요
+          {insertFanLetter.searchParamsArtist}에게 첫번째 팬레터를 보내주세요
         </StMsg>
       ) : null}
     </ListBox>

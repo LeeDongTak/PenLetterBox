@@ -1,11 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { updInput } from "../../redux/modules/detailRedux/detail";
 
-function FanLetter({ navigate, fanLetterData, searchFanLetter }) {
+
+function FanLetter({ fanLetterData }) {
+  const dispathch = useDispatch();
+  const navigate = useNavigate();
   return (
     <ListElement
       onClick={() => {
         navigate(`/detail/${fanLetterData.id}`);
+        dispathch(updInput(fanLetterData.content))
       }}
     >
       <ImgBox>

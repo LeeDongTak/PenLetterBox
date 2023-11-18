@@ -1,39 +1,63 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../commom/Button";
 import styled from "styled-components";
-import { InsertContext } from "../../context/homeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { insertCommit } from "../../redux/modules/homeRedux/insertFanLetter";
+import { searchMsgCheck } from "../../redux/modules/homeRedux/searchFanLetter";
+import {
+  nicknameChage,
+  contentChage,
+} from "../../redux/modules/homeRedux/insertFanLetter";
 
-function FanLetterInsertBox() {
-  const {
-    searchParams,
-    errMsgBool,
-    errMsg,
-    nickNameInput,
-    nickNameInputHendler,
-    nickNameRef,
-    contentInput,
-    contentInputHendler,
-  } = useContext(InsertContext)
+function FanLetterInsertBox({ nickNameRef }) {
+  const insertFanLetter = useSelector((state) => state.insertFanLetter);
+  const searchFanLetter = useSelector((state) => state.searchFanLetter);
+  const dispatch = useDispatch();
+
+  const nickNameinputChage = (e) => {
+    dispatch(nicknameChage(e.target.value));
+  };
+  const contentinputChage = (e) => {
+    dispatch(contentChage(e.target.value));
+  };
+
   return (
     <InputBox>
       <TitleBox>
-        {searchParams.get("artistSort")}
+        {insertFanLetter.searchParamsArtist}
         에게 팬레터 보내기
       </TitleBox>
-      {errMsgBool === true ? <ErrMsg>{errMsg}</ErrMsg> : null}
+      {insertFanLetter.errMsgBool === true ? (
+        <ErrMsg>{insertFanLetter.errMsg}</ErrMsg>
+      ) : null}
+      {searchFanLetter.searchErrBool === true ? (
+        <ErrMsg>{searchFanLetter.searchErrMsg}</ErrMsg>
+      ) : null}
       <ListInsertNickName
-        value={nickNameInput}
+        value={insertFanLetter.nickNameInput}
         placeholder="닉네임을 입력하세요"
         type="text"
-        onChange={nickNameInputHendler}
+        onChange={nickNameinputChage}
         ref={nickNameRef}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            dispatch(insertCommit());
+            dispatch(searchMsgCheck());
+          }
+        }}
       />
       <ListInsertContent
-        value={contentInput}
+        value={insertFanLetter.contentInput}
         placeholder="내용을 입력하세요"
-        onChange={contentInputHendler}
+        onChange={contentinputChage}
         cols="30"
         rows="5"
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            dispatch(insertCommit());
+            dispatch(searchMsgCheck());
+          }
+        }}
       ></ListInsertContent>
       <Button Sortation="팬레터 등록" />
     </InputBox>
@@ -41,7 +65,6 @@ function FanLetterInsertBox() {
 }
 
 export default FanLetterInsertBox;
-
 
 // style
 // input 영역
