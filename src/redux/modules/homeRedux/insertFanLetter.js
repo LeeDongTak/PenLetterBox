@@ -11,7 +11,6 @@ const uuid = () => {
 // localStorage에서 data가져오기
 let insertData = [];
 let insertFakeData = [];
-let copyData = [];
 if (
   localStorage.getItem("data") === null &&
   localStorage.getItem("fakeData") === null
